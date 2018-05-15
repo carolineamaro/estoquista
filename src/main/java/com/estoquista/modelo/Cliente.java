@@ -5,12 +5,14 @@ public class Cliente {
     private String endereco;
     private String cpf;
     private String telefone;
+    private String email;
 
-    public Cliente(String nome, String endereco, String cpf, String telefone) {
+    public Cliente(String nome, String endereco, String cpf, String telefone, String email) {
         this.nome = nome;
         this.endereco = endereco;
         this.cpf = cpf;
         this.telefone = telefone;
+        this.email = email;
     }
 
     public String getNome() {
@@ -43,5 +45,13 @@ public class Cliente {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

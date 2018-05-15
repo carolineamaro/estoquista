@@ -1,21 +1,26 @@
 package com.estoquista.modelo;
 
+import com.estoquista.servicos.EnviadorDeEmail;
 import java.util.ArrayList;
 
 public class Venda {
-    private ArrayList<Produto> produto = new ArrayList<>();
+
+    private ArrayList<Produto> listaProdutos = new ArrayList<>();
     private Cliente cliente;
+    private EnviadorDeEmail enviadorDeEmail;
 
-    public Venda(Cliente cliente) {
+    public Venda(Cliente cliente, ArrayList<Produto> listaProdutos, EnviadorDeEmail enviadorDeEmail) {
         this.cliente = cliente;
-    }
-    
-    public ArrayList<Produto> getProduto() {
-        return produto;
+        this.listaProdutos = listaProdutos;
+        this.enviadorDeEmail = enviadorDeEmail;
     }
 
-    public void setProduto(ArrayList<Produto> produto) {
-        this.produto = produto;
+    public ArrayList<Produto> getListaProdutos() {
+        return listaProdutos;
+    }
+
+    public void setListaProdutos(ArrayList<Produto> listaProdutos) {
+        this.listaProdutos = listaProdutos;
     }
 
     public Cliente getCliente() {
@@ -24,5 +29,17 @@ public class Venda {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public boolean realizarVenda() {
+        for (Produto produto : this.listaProdutos) {
+            int quantidadeModificada = produto.getQuantidade() - 1;
+            produto.setQuantidade(quantidadeModificada);
+        }
+        
+        this.enviadorDeEmail.envia(this.cliente.getEmail(), "Sua nota fiscal para o CPF" + this.cliente.getCpf());
+        
+        
+        return true;
     }
 }
